@@ -1,0 +1,227 @@
+git init
+
+git status
+
+git add .
+
+git commit -m "first commit"        xyz -> unique logname generated after first commit (to check - git log)
+
+
+---------------------------------------
+
+<You have started modifying the file after first commit >
+
+git status
+
+git add .
+
+git commit -m "second commit"      tus -> unique logname generated after second commit (to check - git log)
+
+
+---------------------------------------
+
+<You have started modifying the file after second commit >
+
+git status
+
+git add .
+
+git commit -m "third commit"      pqr -> unique logname generated after third commit (to check - git log)
+
+**Note : Whenever new commit is made Head is changed to that commit by default
+         Also, by default all commits are under master branch
+
+
+---------------------------------------
+
+git log       o/p - pqr (Head)
+		    tus
+		    xyz
+
+
+---------------------------------------
+
+<You need to go back to second commit >
+
+one way of doing
+
+git checkout <second commit id>  // git checkout tus
+
+Now, you can't find third commit code in your editor  => it is removed from our code
+
+But this is not how we do as this doesn't fall under master branch
+
+Inorder to accomplish 
+
+git checkout master     // restore the deleted third commit
+
+git rest --hard <second commit id>  // this will remove third commit code & moves out head to the second commit
+
+------------------------------------
+
+git log   o/p - tus (Head)
+		xyz
+
+------------------------------------
+
+(Right now third commit is deleted)
+Assume that you have written something after second commit & you have SAVED the file & you haven't staged those changes (=> you haven't provided git add .). you found your code is messy & need to go to second commit
+
+In short, moving our code to last commit without staging being done (Note : staging is not done)
+
+then , you can provide
+
+git checkout -- .     // moves to last commit only if staging is not done for our current code & code is saved
+
+
+-------------------------------------
+
+By defualt all commits comes under master branch
+
+now, you dont want to mess up your master branch, we will create our own branch which contains all the commits of master branch & we will try implementing new code in our new branch. once we feel that's appropriate we will merge with master branch. so that we can implmenent the changes to master branch
+
+In order to acheive this :
+
+first create a new branch & switch to new branch
+
+git checkout -b new-feature    // new-feature is branch name .. ** note that hyphen is important
+git branch    // check whether new branch feature got created & is highlighted
+
+
+now, create style.css in your feature branch , once created
+
+git add . 
+
+git commit -m "style.css file added to feature branch"
+
+now check git logs regarding the head pointing to commits
+
+our feature branch head points towards "style.css file added to feature branch" commit
+
+where as our master branch head points towards second commit
+
+we need to merge feature branch commit to the master branch commit
+
+currently we are in feature branch, we need to move to master branch inorder to merge
+
+moving to master branch ...
+
+git checkout master
+
+after executing above command , you will see that style.css file is missing in master branch which you have added in the feature branch. because we have not merged yet
+
+for merging ...
+
+git merge new-feature
+
+now you can see style.css file in our master branch as well
+
+for testing type 
+
+git log 
+
+now we can see that feature & master branch are pointing to same commit
+
+-----------------------------------------------------------------------------------------------
+
+since we dont want to mess with our master branch for implementing certian functionality. we have created new branch (new-feature) & performed our functinality there & finally merged with master branch
+
+-----------------------------------------------------------------------
+
+Now, we need to delete feature branch as we dont need any more
+
+for deleting branch ....
+
+git branch -D new-feature   // deletes feature branch 
+
+
+-------------------------------------------------------
+
+
+
+						UPLOADING CODE (COMMITS)(LOCAL REPO) TO GITHUB (REMOTE REPO )(SERVER REPO)
+
+
+First go to git hub , create new repository & copy the clone url of the newly created repository
+
+now, in our vs code terminal , create remote connection
+
+git remote add origin <url of the repo created in github>       // git remote add origin https://github.com/hemanthvhs/Github-Test.git
+
+now we have two branches master & new-feature. first we will upload all commits of master branch
+
+git push -u origin master    // pushing master branch commits to github
+
+
+now,pushing new-feature commit to github
+
+git push -u origin new-feature
+
+
+---------------------------------------------------------
+
+
+						CLONING YOUR REMOTE REPOSITORY
+
+Assume that another employee need to add his functionality to the code which other have uploaded to github previously
+In the sense , new employee need to download the uploaded code & make changes
+
+go to new window in vs code
+create a new folder clone & select that folder
+now open the terminal & type below command for cloning
+
+git clone <url>    // git clone https://github.com/hemanthvhs/Github-Test.git
+
+once cloning is completed, open the folder which contains the cloned files
+
+now type git status inorder to check whether it's showing updated data compared with central (remote) repo
+BTW , it should show , your branch is up to date with origin/master
+
+now , this new  employee add script.js file
+
+git add . 
+
+git commit -m "Added javascript file script.js"  
+
+now , we need to push the new commit to remote server.
+
+normal way : git remote add origin <url>
+
+since, it is cloned form remote repo , no need to perform above command to create origin
+
+for testing check , git remote   o/p will show origin 
+
+now you can directly push your code to remote server using command ....
+
+git push
+
+-----------------------------------------------------------------------------------------------------
+
+Now the new employee cloned the repository and added script.js file & uploaded to remote server repository 
+
+But old employee doesn't have that script.js file which other employee has uploaded
+
+For that old employee need to execute the below command ....
+
+git pull  // which will pull the file uploaded by other person  from remote repository to his vs code
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOTE : git log command gives all the commits some times it's difficult to come out of the loop
+       now , come to the end & press q
+
+      To save github password & username , got to the website https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/tag/1.18.5
+      now download , GCMW-1.18.5.exe
+
+     After installing , perform git remote push operation , a pop up will open & provide username & password. from next push/pull version it wii not
+     propt for username & password.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
+
+
+								-----xxx------
+
+
+
