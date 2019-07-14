@@ -1,10 +1,10 @@
-git init
+git init     // initialize get local repo 
+ 
+git status   // provides all files which needs to be staged
 
-git status
+git add .    // adds all the files to the staged
 
-git add .
-
-git commit -m "first commit"        xyz -> unique logname generated after first commit (to check - git log)
+git commit -m "first commit"        xyz -> unique logname generated after first commit (to check - git log)    // commit the changes in the local repo
 
 
 ---------------------------------------
@@ -34,7 +34,7 @@ git commit -m "third commit"      pqr -> unique logname generated after third co
 
 ---------------------------------------
 
-git log       o/p - pqr (Head)
+git log       o/p - pqr (Head)           // git log provides all the summary of the commits
 		    tus
 		    xyz
 
@@ -45,7 +45,7 @@ git log       o/p - pqr (Head)
 
 one way of doing
 
-git checkout <second commit id>  // git checkout tus
+git checkout <second commit id>  // git checkout tus    // never do this to remove the commit
 
 Now, you can't find third commit code in your editor  => it is removed from our code
 
@@ -53,9 +53,9 @@ But this is not how we do as this doesn't fall under master branch
 
 Inorder to accomplish 
 
-git checkout master     // restore the deleted third commit
+git checkout master     // restore the deleted third commit    // to move to particular branch
 
-git rest --hard <second commit id>  // this will remove third commit code & moves out head to the second commit
+git reset --hard <second commit id>  // this will remove third commit code & moves out head to the second commit  // to remove specific commit 
 
 ------------------------------------
 
@@ -76,7 +76,7 @@ git checkout -- .     // moves to last commit only if staging is not done for ou
 
 -------------------------------------
 
-By defualt all commits comes under master branch
+By default all commits comes under master branch
 
 now, you dont want to mess up your master branch, we will create our own branch which contains all the commits of master branch & we will try implementing new code in our new branch. once we feel that's appropriate we will merge with master branch. so that we can implmenent the changes to master branch
 
@@ -84,8 +84,8 @@ In order to acheive this :
 
 first create a new branch & switch to new branch
 
-git checkout -b new-feature    // new-feature is branch name .. ** note that hyphen is important
-git branch    // check whether new branch feature got created & is highlighted
+git checkout -b new-feature    // new-feature is branch name .. ** note that hyphen is important   // creating new branch & moving to the newly created branch
+git branch    // check whether new branch feature got created & is highlighted   // provide all the available branches
 
 
 now, create style.css in your feature branch , once created
@@ -146,7 +146,7 @@ First go to git hub , create new repository & copy the clone url of the newly cr
 
 now, in our vs code terminal , create remote connection
 
-git remote add origin <url of the repo created in github>       // git remote add origin https://github.com/hemanthvhs/Github-Test.git
+git remote add origin <url of the repo created in github>       // git remote add origin https://github.com/hemanthvhs/Github-Test.git  // create remote named 'origin'
 
 now we have two branches master & new-feature. first we will upload all commits of master branch
 
@@ -207,6 +207,34 @@ git pull  // which will pull the file uploaded by other person  from remote repo
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		COMMON SCENARIO : You have uploaded your code to github, now you have added new file in your local repo & need to push that local file to github
+
+first run ...
+
+git status    // you will find that new file isnot staged
+
+git add .   // staging that git file
+
+git commit -m "New file added"    // commit the changes to the local repo
+
+now ,we need to push the new file to github remote repo
+
+generally we will do git remote add origin <url> 
+
+but the above command is not necessary because, we have already created origin branch in the remote repo the above command tries to create origin banch again in repo. which will throw error stating that the branch already exists.
+
+now check the connection, git remote  // this should provide connection as origin
+
+now, we have active connection, now try to give push command
+
+git push or git push -u origin
+
+now, you can see that new file is added to the github repo
+
+
+
+---------------------------------------------------------------------------------------
 
 NOTE : git log command gives all the commits some times it's difficult to come out of the loop
        now , come to the end & press q
